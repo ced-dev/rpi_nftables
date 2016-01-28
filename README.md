@@ -109,6 +109,6 @@ umount /mnt/ext4
 
 ## Configure the Kernel
 
-Simply replace the `.config` with the one I'm providing here, and you're done.
+Simply replace the `.config` with the one I'm providing [here](.config), and you're done.
 
 *! Caution: You have to execute this step right before the `make [...] zImage modules dtbs` command !*
