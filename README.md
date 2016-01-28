@@ -55,6 +55,8 @@ git clone https://github.com/raspberrypi/tools
 cd rpi-kernel
 ```
 
+#### Build
+
 *Note for 32bits build environment: remove the `-x64` from CROSS_COMPILE path*
 
   - For Raspberry Pi 1: (or compute module)
@@ -77,8 +79,36 @@ make -j4 ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabi
 ```
 *Change the `-j4` accordingly (number of threads, typically the number of CPU you want to use to build)*
 
+#### Deploy
+Connect the sdcard to the machine you're building with, and find the two partitions with the command `lsblk`
+
+Typically `sdb1` which is the `/boot` partition (fat32) and `sdb2` which is the root `/` (ext4)
+
+Then:
+```
+mkdir /mnt/fat32
+mkdir /mnt/ext4
+mount /dev/sdb1 /mnt/fat32
+mount /dev/sdb2 /mnt/ext4
+```
+```
+cd ~/rpi-kernel
+make ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf- INSTALL_MOD_PATH=/mnt/ext4 modules_install
+```
+```
+cp /mnt/fat32/$KERNEL.img /mnt/fat32/$KERNEL-backup.img
+scripts/mkknlimg arch/arm/boot/zImage /mnt/fat32/$KERNEL.img
+cp arch/arm/boot/dts/*.dtb mnt/fat32/
+cp arch/arm/boot/dts/overlays/*.dtb* /mnt/fat32/overlays/
+cp arch/arm/boot/dts/overlays/README /mnt/fat32/overlays/
+umount /mnt/fat32
+umount /mnt/ext4
+```
+
 
 
 ## Configure the Kernel
 
 Simply replace the `.config` with the one I'm providing here, and you're done.
+
+*! Caution: You have to execute this step right before the `make [...] zImage modules dtbs` command !*
