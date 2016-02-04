@@ -62,20 +62,20 @@ cd rpi-kernel
   - For Raspberry Pi 1: (or compute module)
 ```
 KERNEL=kernel
-make ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf- bcmrpi_defconfig
+make ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf- bcmrpi_defconfig
 ```
 
   - For Raspberry Pi 2:
 ```
 KERNEL=kernel7
-make ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf- bcm2709_defconfig
+make ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf- bcm2709_defconfig
 ```
 
 - For both:
 
 *! At this precise step, please refer to __'Configure the Kernel'__ section !*
 ```
-make -j4 ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf- zImage modules dtbs
+make -j4 ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf- zImage modules dtbs
 ```
 *Change the `-j4` accordingly (number of threads, typically the number of CPU you want to use to build)*
 
@@ -93,7 +93,7 @@ mount /dev/sdb2 /mnt/ext4
 ```
 ```
 cd ~/rpi-kernel
-make ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf- INSTALL_MOD_PATH=/mnt/ext4 modules_install
+make ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf- INSTALL_MOD_PATH=/mnt/ext4 modules_install
 ```
 ```
 cp /mnt/fat32/$KERNEL.img /mnt/fat32/$KERNEL-backup.img
