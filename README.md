@@ -98,7 +98,7 @@ make ARCH=arm CROSS_COMPILE=~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-r
 ```
 cp /mnt/fat32/$KERNEL.img /mnt/fat32/$KERNEL-backup.img
 scripts/mkknlimg arch/arm/boot/zImage /mnt/fat32/$KERNEL.img
-cp arch/arm/boot/dts/*.dtb mnt/fat32/
+cp arch/arm/boot/dts/*.dtb /mnt/fat32/
 cp arch/arm/boot/dts/overlays/*.dtb* /mnt/fat32/overlays/
 cp arch/arm/boot/dts/overlays/README /mnt/fat32/overlays/
 umount /mnt/fat32
